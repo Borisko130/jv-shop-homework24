@@ -1,7 +1,6 @@
 package com.internet.shop.dao;
 
 import com.internet.shop.lib.Dao;
-import com.internet.shop.lib.Inject;
 import com.internet.shop.model.Product;
 import com.internet.shop.storage.Storage;
 import java.util.List;
@@ -9,12 +8,10 @@ import java.util.Optional;
 
 @Dao
 public class ProductDaoImpl implements ProductDao {
-    @Inject
-    ProductDao productDao;
 
     @Override
     public Product create(Product product) {
-        Storage.productStorage.add(product);
+        Storage.addProduct(product);
         return product;
     }
 
@@ -32,7 +29,13 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product update(Product product) {
-        return null;
+        for (Product prod : Storage.productStorage) {
+            if (prod.getId().equals(product.getId())) {
+                prod.setName(product.getName());
+                prod.setPrice(product.getPrice());
+            }
+        }
+        return product;
     }
 
     @Override
