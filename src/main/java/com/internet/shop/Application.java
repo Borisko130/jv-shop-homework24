@@ -10,15 +10,18 @@ public class Application {
     public static void main(String[] args) {
         ProductService productService = (ProductService) injector.getInstance(ProductService.class);
         Product productToUpdate = new Product("Something Expensive", 10000);
+        Product banana = new Product("Banana", 10.3);
+        Product car = new Product("Car", 17);
         //Adding products
-        productService.create(new Product("Banana", 10.3));
-        productService.create(new Product("Car", 17));
+        productService.create(banana);
+        productService.create(car);
         productService.create(productToUpdate);
         // Deleting product
         Long idToDelete = 2L;
         System.out.println(productService.delete(idToDelete));
         //Adding new product after deletion of existing product to check ID
-        productService.create(new Product("Apple", 50));
+        Product apple = new Product("Apple", 50);
+        productService.create(apple);
         //Updating product
         Product newProduct = new Product("Something cheap", 0.1);
         newProduct.setId(3L);
