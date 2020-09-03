@@ -1,13 +1,13 @@
 package com.internet.shop;
 
-import com.internet.shop.model.Product;
-import com.internet.shop.storage.Storage;
+import com.internet.shop.lib.Injector;
+import com.internet.shop.service.ProductService;
 
 public class Application {
-    public static void main(String[] args) {
-        Storage.addProduct(new Product("Hat", 15.0));
-        Storage.addProduct(new Product("Banana", 2.0));
+    private static Injector injector = Injector.getInstance("com.internet.shop");
 
-        System.out.println(Storage.productStorage);
+    public static void main(String[] args) {
+        ProductService productService = (ProductService) injector.getInstance(ProductService.class);
+
     }
 }
