@@ -23,10 +23,10 @@ public class Application {
         productService.create(apple);
         //Updating product
         Product newProduct = new Product("Something cheap", 0.1);
-        newProduct.setId(3L);
+        newProduct.setId(productToUpdate.getId());
         productService.update(newProduct);
         //Checking get and getAll
-        System.out.println(productService.get(3L));
+        System.out.println(productService.get(productToUpdate.getId()));
         System.out.println(productService.getAll());
     }
 }
