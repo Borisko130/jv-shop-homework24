@@ -10,7 +10,8 @@ import java.util.Optional;
 public class ProductDaoImpl implements ProductDao {
     @Override
     public Product create(Product product) {
-        return null;
+        Storage.productStorage.add(product);
+        return product;
     }
 
     @Override
@@ -32,7 +33,6 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public boolean delete(Long id) {
-        return false;
+        return Storage.productStorage.removeIf(product -> product.getId().equals(id));
     }
-
 }
