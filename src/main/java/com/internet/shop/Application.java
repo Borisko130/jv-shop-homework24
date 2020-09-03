@@ -17,8 +17,7 @@ public class Application {
         productService.create(car);
         productService.create(productToUpdate);
         // Deleting product
-        Long idToDelete = 2L;
-        System.out.println(productService.delete(idToDelete));
+        System.out.println(productService.delete(car.getId()));
         //Adding new product after deletion of existing product to check ID
         Product apple = new Product("Apple", 50);
         productService.create(apple);
