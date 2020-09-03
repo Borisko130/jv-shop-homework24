@@ -6,6 +6,7 @@ import com.internet.shop.model.Product;
 import com.internet.shop.storage.Storage;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @Dao
 public class ProductDaoImpl implements ProductDao {
@@ -29,9 +30,9 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product update(Product product) {
-        Storage.productStorage.stream()
-                .filter(prod -> prod.getId().equals(product.getId()))
-                .forEach(prod -> prod == product);
+        IntStream.range(0, Storage.productStorage.size())
+                .filter(i -> Storage.productStorage.get(i).getId().equals(product.getId()))
+                .forEach(i -> Storage.productStorage.set(i, product));
         return product;
     }
 
