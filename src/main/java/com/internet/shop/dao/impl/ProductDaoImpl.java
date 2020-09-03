@@ -1,5 +1,6 @@
-package com.internet.shop.dao;
+package com.internet.shop.dao.impl;
 
+import com.internet.shop.dao.ProductDao;
 import com.internet.shop.lib.Dao;
 import com.internet.shop.model.Product;
 import com.internet.shop.storage.Storage;
@@ -8,7 +9,6 @@ import java.util.Optional;
 
 @Dao
 public class ProductDaoImpl implements ProductDao {
-
     @Override
     public Product create(Product product) {
         Storage.addProduct(product);

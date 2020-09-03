@@ -12,10 +12,10 @@ public class Storage {
     public static final List<Product> productStorage = new ArrayList<>();
     public static final List<Order> orderStorage = new ArrayList<>();
     public static final List<ShoppingCart> shoppingCartStorage = new ArrayList<>();
-    private static long productCounter = 1L;
-    private static long userCounter = 1L;
-    private static long shoppingCartCounter = 1L;
-    private static long orderCounter = 1L;
+    private static Long productCounter = 1L;
+    private static Long userCounter = 1L;
+    private static Long shoppingCartCounter = 1L;
+    private static Long orderCounter = 1L;
 
     public static void addProduct(Product product) {
         product.setId(productCounter++);

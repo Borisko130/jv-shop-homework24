@@ -9,25 +9,22 @@ public class Application {
 
     public static void main(String[] args) {
         ProductService productService = (ProductService) injector.getInstance(ProductService.class);
-
         Product productToUpdate = new Product("Something Expensive", 10000);
-
+        //Adding products
         productService.create(new Product("Banana", 10.3));
         productService.create(new Product("Car", 17));
         productService.create(productToUpdate);
-
+        // Deleting product
         Long idToDelete = 2L;
         System.out.println(productService.delete(idToDelete));
-
+        //Adding new product after deletion of existing product to check ID
         productService.create(new Product("Apple", 50));
-
-        System.out.println(productService.get(3L));
-
+        //Updating product
         Product newProduct = new Product("Something cheap", 0.1);
         newProduct.setId(3L);
         productService.update(newProduct);
-
+        //Checking get and getAll
+        System.out.println(productService.get(3L));
         System.out.println(productService.getAll());
-
     }
 }
