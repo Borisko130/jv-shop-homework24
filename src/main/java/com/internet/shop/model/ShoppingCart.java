@@ -1,25 +1,16 @@
 package com.internet.shop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart {
-    private static Long shoppingCartCounter = 0L;
     private Long id;
     private List<Product> products;
     private Long userId;
 
     public ShoppingCart(List<Product> products, Long userId) {
-        this.id = shoppingCartCounter++;
-        this.products = products;
+        this.products = new ArrayList<>();
         this.userId = userId;
-    }
-
-    public static Long getShoppingCartCounter() {
-        return shoppingCartCounter;
-    }
-
-    public static void setShoppingCartCounter(Long shoppingCartCounter) {
-        ShoppingCart.shoppingCartCounter = shoppingCartCounter;
     }
 
     public Long getId() {

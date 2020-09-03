@@ -29,12 +29,9 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product update(Product product) {
-        for (Product prod : Storage.productStorage) {
-            if (prod.getId().equals(product.getId())) {
-                prod.setName(product.getName());
-                prod.setPrice(product.getPrice());
-            }
-        }
+        Storage.productStorage.stream()
+                .filter(prod -> prod.getId().equals(product.getId()))
+                .forEach(prod -> prod == product);
         return product;
     }
 
