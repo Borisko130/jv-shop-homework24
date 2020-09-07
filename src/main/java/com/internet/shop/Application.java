@@ -50,9 +50,7 @@ public class Application {
         // User currently has no orders
         System.out.println(ORDER_SERVICE.getUserOrders(1L));
 
-        // Something like checkout
         ORDER_SERVICE.completeOrder(SHOPPING_CART_SERVICE.getByUserId(1L));
-        SHOPPING_CART_SERVICE.clear(SHOPPING_CART_SERVICE.getByUserId(1L));
 
         // Show one order
         System.out.println(ORDER_SERVICE.getUserOrders(1L));
