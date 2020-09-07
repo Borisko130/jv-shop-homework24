@@ -30,11 +30,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order get(Long id) {
-        Optional<Order> order = orderDao.get(id);
-        if (order.isPresent()) {
-            return order.get();
-        }
-        throw new NoSuchElementException("There is no order with id " + id);
+        return orderDao.get(id).get();
     }
 
     @Override

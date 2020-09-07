@@ -38,11 +38,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getByUserId(Long userId) {
-        Optional<ShoppingCart> shoppingCart = shoppingCartDao.getByUserId(userId);
-        if (shoppingCart.isPresent()) {
-            return shoppingCart.get();
-        }
-        throw new NoSuchElementException("No orders from user with id " + userId);
+        return shoppingCartDao.getByUserId(userId).get();
     }
 
     @Override

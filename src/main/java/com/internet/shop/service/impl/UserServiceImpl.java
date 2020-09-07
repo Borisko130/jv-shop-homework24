@@ -21,11 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(Long id) {
-        Optional<User> user = userDao.get(id);
-        if (user.isPresent()) {
-            return user.get();
-        }
-        throw new NoSuchElementException("No user with id " + id);
+        return userDao.get(id).get();
     }
 
     @Override
