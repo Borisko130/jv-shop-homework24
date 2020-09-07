@@ -47,12 +47,16 @@ public class ShoppingCart {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ShoppingCart that = (ShoppingCart) o;
-        return Objects.equals(getId(), that.getId()) &&
-                Objects.equals(getProducts(), that.getProducts()) &&
-                Objects.equals(getUserId(), that.getUserId());
+        return Objects.equals(getId(), that.getId())
+                && Objects.equals(getProducts(), that.getProducts())
+                && Objects.equals(getUserId(), that.getUserId());
     }
 
     @Override

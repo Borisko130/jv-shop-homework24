@@ -39,7 +39,8 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     @Override
     public ShoppingCart update(ShoppingCart shoppingCart) {
         IntStream.range(0, Storage.shoppingCartStorage.size())
-                .filter(i -> Storage.shoppingCartStorage.get(i).getId().equals(shoppingCart.getId()))
+                .filter(i -> Storage.shoppingCartStorage.get(i).getId()
+                        .equals(shoppingCart.getId()))
                 .forEach(i -> Storage.shoppingCartStorage.set(i, shoppingCart));
         return shoppingCart;
     }

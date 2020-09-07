@@ -6,7 +6,6 @@ import com.internet.shop.lib.Service;
 import com.internet.shop.model.Product;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.service.ShoppingCartService;
-
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Optional;
