@@ -2,14 +2,15 @@ package com.internet.shop.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ShoppingCart {
     private Long id;
     private List<Product> products;
     private Long userId;
 
-    public ShoppingCart(List<Product> products, Long userId) {
-        this.products = new ArrayList<>();
+    public ShoppingCart(Long userId) {
+        products = new ArrayList<>();
         this.userId = userId;
     }
 
@@ -42,5 +43,24 @@ public class ShoppingCart {
         return "ShoppingCart{" + "id=" + id
                 + ", products=" + products
                 + ", userId=" + userId + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ShoppingCart that = (ShoppingCart) o;
+        return Objects.equals(getId(), that.getId())
+                && Objects.equals(getProducts(), that.getProducts())
+                && Objects.equals(getUserId(), that.getUserId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getProducts(), getUserId());
     }
 }

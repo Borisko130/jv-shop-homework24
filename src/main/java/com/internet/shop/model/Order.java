@@ -9,7 +9,7 @@ public class Order {
     private Long userId;
 
     public Order(Long userId) {
-        this.products = new ArrayList<>();
+        products = new ArrayList<>();
         this.userId = userId;
     }
 
