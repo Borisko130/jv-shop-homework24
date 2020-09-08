@@ -13,5 +13,7 @@ public interface GenericDao<T> {
 
     T update(T t);
 
-    boolean delete(Long id);
+    boolean deleteById(Long id);
+
+    boolean delete(T t);
 }

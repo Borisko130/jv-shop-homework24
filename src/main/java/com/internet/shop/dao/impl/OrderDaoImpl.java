@@ -20,7 +20,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public Optional<Order> get(Long id) {
         return Storage.orderStorage.stream()
-                .filter(order -> order.getId().equals(id))
+                .filter(o -> o.getId().equals(id))
                 .findFirst();
     }
 
@@ -45,7 +45,12 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean delete(Long id) {
-        return Storage.orderStorage.removeIf(order -> order.getId().equals(id));
+    public boolean deleteById(Long id) {
+        return Storage.orderStorage.removeIf(o -> o.getId().equals(id));
+    }
+
+    @Override
+    public boolean delete(Order order) {
+        return Storage.orderStorage.removeIf(o -> o.equals(order));
     }
 }
