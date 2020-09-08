@@ -2,7 +2,6 @@ package com.internet.shop.service;
 
 import java.util.List;
 
-// TODO Refactor Impls using this
 public interface GenericService<T> {
     T create(T t);
 
@@ -12,5 +11,7 @@ public interface GenericService<T> {
 
     T update(T t);
 
-    boolean delete(Long id);
+    boolean deleteById(Long id);
+
+    boolean delete(T t);
 }

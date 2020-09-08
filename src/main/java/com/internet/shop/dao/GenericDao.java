@@ -3,7 +3,6 @@ package com.internet.shop.dao;
 import java.util.List;
 import java.util.Optional;
 
-// TODO Refactor Impls using this
 public interface GenericDao<T> {
     T create(T t);
 
