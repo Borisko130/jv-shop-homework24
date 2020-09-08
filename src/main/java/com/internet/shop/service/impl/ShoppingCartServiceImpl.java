@@ -8,7 +8,7 @@ import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.service.ShoppingCartService;
 import java.util.ArrayList;
 import java.util.List;
-
+//
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Inject
