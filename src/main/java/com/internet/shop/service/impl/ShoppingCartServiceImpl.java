@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Inject
-    ShoppingCartDao shoppingCartDao;
+    private ShoppingCartDao shoppingCartDao;
 
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
