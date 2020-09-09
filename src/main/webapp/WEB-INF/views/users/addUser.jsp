@@ -8,7 +8,7 @@
 
 <h1 style="color:darkred">${message}</h1>
 
-<form method="post" action="${pageContext.request.contextPath}/registration">
+<form method="post" action="${pageContext.request.contextPath}/users/add">
     <table bgcolor="#d3d3d3">
         <tr>
             <td>

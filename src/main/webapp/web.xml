@@ -23,21 +23,21 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>warehouse</servlet-name>
+        <servlet-name>allProducts</servlet-name>
         <servlet-class>com.internet.shop.controller.ShowProductsController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>warehouse</servlet-name>
-        <url-pattern>/products/warehouse</url-pattern>
+        <servlet-name>allProducts</servlet-name>
+        <url-pattern>/products/all</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>registration</servlet-name>
+        <servlet-name>addUser</servlet-name>
         <servlet-class>com.internet.shop.controller.AddUserController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>registration</servlet-name>
-        <url-pattern>/registration</url-pattern>
+        <servlet-name>addUser</servlet-name>
+        <url-pattern>/users/add</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -50,11 +50,11 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>delete</servlet-name>
+        <servlet-name>deleteUser</servlet-name>
         <servlet-class>com.internet.shop.controller.DeleteUserController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>delete</servlet-name>
+        <servlet-name>deleteUser</servlet-name>
         <url-pattern>/users/delete</url-pattern>
     </servlet-mapping>
 
@@ -64,7 +64,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>addProduct</servlet-name>
-        <url-pattern>/addProduct</url-pattern>
+        <url-pattern>/products/add</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -73,7 +73,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>addToCart</servlet-name>
-        <url-pattern>/products/addToCart</url-pattern>
+        <url-pattern>/shopping-carts/products/add</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -82,6 +82,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>showCart</servlet-name>
-        <url-pattern>/cart</url-pattern>
+        <url-pattern>/shopping-carts/products/</url-pattern>
     </servlet-mapping>
 </web-app>

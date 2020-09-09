@@ -20,6 +20,6 @@ public class ShowUsersController extends HttpServlet {
         List<User> allUsers = userService.getAll();
 
         req.setAttribute("users", allUsers);
-        req.getRequestDispatcher("/WEB-INF/views/users/all.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/users/allUsers.jsp").forward(req, resp);
     }
 }

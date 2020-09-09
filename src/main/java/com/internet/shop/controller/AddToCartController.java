@@ -30,6 +30,6 @@ public class AddToCartController extends HttpServlet {
         }
 
         shoppingCartService.addProduct(shoppingCart, productService.get(id));
-        resp.sendRedirect(req.getContextPath() + "/products/warehouse");
+        resp.sendRedirect(req.getContextPath() + "/products/all");
     }
 }

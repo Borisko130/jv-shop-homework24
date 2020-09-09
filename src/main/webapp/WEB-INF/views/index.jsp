@@ -11,7 +11,7 @@
 <table border="1" bgcolor="#d3d3d3">
     <tr>
         <td>
-            <a href="${pageContext.request.contextPath}/registration">Proceed to registration</a>
+            <a href="${pageContext.request.contextPath}/users/add">Proceed to registration</a>
         </td>
         <td>
             <a href="${pageContext.request.contextPath}/users/all">Check users</a>
@@ -19,15 +19,15 @@
     </tr>
     <tr>
         <td>
-            <a href="${pageContext.request.contextPath}/addProduct">Add products</a>
+            <a href="${pageContext.request.contextPath}/products/add">Add products</a>
         </td>
         <td>
-            <a href="${pageContext.request.contextPath}/products/warehouse">Check warehouse</a>
+            <a href="${pageContext.request.contextPath}/products/all">Check warehouse</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="${pageContext.request.contextPath}/cart">Check order</a>
+            <a href="${pageContext.request.contextPath}/shopping-carts/products/">Check order</a>
         </td>
     </tr>
 </table>

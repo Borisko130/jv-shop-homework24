@@ -6,7 +6,7 @@
 <body>
 <h1>You can add products here</h1>
 
-<form method="post" action="${pageContext.request.contextPath}/addProduct">
+<form method="post" action="${pageContext.request.contextPath}/products/add">
     <table bgcolor="#d3d3d3">
         <tr>
             <td>
@@ -16,7 +16,7 @@
             </td>
             <td>
                 Please enter price of the product: <label>
-                <input type="text" name="price">
+                <input type="number" name="price">
             </label>
             </td>
         </tr>
