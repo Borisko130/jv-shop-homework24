@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AddToCartController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
+    private static final Long USER_ID = 1L;
+    private static ShoppingCart shoppingCart;
     private final ProductService productService
             = (ProductService) injector.getInstance(ProductService.class);
     private final ShoppingCartService shoppingCartService
             = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
-    private static final Long USER_ID = 1L;
-    private static ShoppingCart shoppingCart;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

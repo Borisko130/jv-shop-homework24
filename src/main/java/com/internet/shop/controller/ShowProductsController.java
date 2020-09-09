@@ -16,7 +16,8 @@ public class ShowProductsController extends HttpServlet {
             = (ProductService) injector.getInstance(ProductService.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         List<Product> productList = productService.getAll();
 
         req.setAttribute("products", productList);
