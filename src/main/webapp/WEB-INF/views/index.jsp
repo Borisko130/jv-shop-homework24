@@ -25,6 +25,11 @@
             <a href="${pageContext.request.contextPath}/products/warehouse">Check warehouse</a>
         </td>
     </tr>
+    <tr>
+        <td>
+            <a href="${pageContext.request.contextPath}/cart">Check order</a>
+        </td>
+    </tr>
 </table>
 </body>
 </html>

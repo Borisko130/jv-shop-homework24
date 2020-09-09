@@ -13,16 +13,16 @@
         <th>Name</th>
         <th>Delete Link</th>
     </tr>
-    <c:forEach var ="product" items="${users}">
+    <c:forEach var ="user" items="${users}">
         <tr>
             <td>
-                <c:out value="${product.id}"/>
+                <c:out value="${user.id}"/>
             </td>
             <td>
-                <c:out value="${product.name}"/>
+                <c:out value="${user.name}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/users/delete?id=${product.id}">Delete</a>
+                <a href="${pageContext.request.contextPath}/users/delete?id=${user.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>
