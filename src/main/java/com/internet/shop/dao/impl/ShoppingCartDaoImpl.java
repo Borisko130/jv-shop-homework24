@@ -10,7 +10,6 @@ import java.util.stream.IntStream;
 
 @Dao
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
-
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
         Storage.addShoppingCart(shoppingCart);
@@ -43,6 +42,11 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                         .equals(shoppingCart.getId()))
                 .forEach(i -> Storage.shoppingCartStorage.set(i, shoppingCart));
         return shoppingCart;
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        return Storage.shoppingCartStorage.removeIf(c -> c.getId().equals(id));
     }
 
     @Override
