@@ -5,6 +5,9 @@
     <title>Your shopping cart</title>
 </head>
 <body>
+
+<h1 style="color:darkred">${message}</h1>
+
 <table border="1">
     <tr>
         <th>Name</th>
