@@ -20,8 +20,8 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String name = req.getParameter("checkout");
-        ShoppingCart shoppingCart = shoppingCartService.get(Long.valueOf(name));
+        String id = req.getParameter("checkout");
+        ShoppingCart shoppingCart = shoppingCartService.get(Long.valueOf(id));
         orderService.completeOrder(shoppingCart);
         resp.sendRedirect(req.getContextPath() + "/");
     }

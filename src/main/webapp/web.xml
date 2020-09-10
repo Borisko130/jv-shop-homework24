@@ -114,10 +114,19 @@
 
     <servlet>
         <servlet-name>allOrders</servlet-name>
-        <servlet-class>com.internet.shop.controller.ShowUserOrdersController</servlet-class>
+        <servlet-class>com.internet.shop.controller.ShowAllUserOrdersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allOrders</servlet-name>
         <url-pattern>/orders/all</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>orderDetails</servlet-name>
+        <servlet-class>com.internet.shop.controller.ShowOrderDetailsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>orderDetails</servlet-name>
+        <url-pattern>/orders/details</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -18,7 +18,7 @@
                 <c:out value="${order.id}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/shopping-cart/products/delete?id=${count.index}">
+                <a href="${pageContext.request.contextPath}/orders/details?id=${order.id}">
                     Check details</a>
             </td>
         </tr>
