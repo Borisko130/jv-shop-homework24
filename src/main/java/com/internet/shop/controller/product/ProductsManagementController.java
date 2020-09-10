@@ -16,9 +16,11 @@ public class ProductsManagementController extends HttpServlet {
             = (ProductService) injector.getInstance(ProductService.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         List<Product> productList = productService.getAll();
         req.setAttribute("products", productList);
-        req.getRequestDispatcher("/WEB-INF/views/products/productsManagement.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/products/productsManagement.jsp")
+                .forward(req, resp);
     }
 }
