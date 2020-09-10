@@ -14,7 +14,7 @@
         <th>Price</th>
         <th>Remove from cart</th>
     </tr>
-    <c:forEach var ="product" items="${cart}" varStatus="count">
+    <c:forEach var="product" items="${cart}" varStatus="count">
         <tr>
             <td>
                 <c:out value="${product.name}"/>
@@ -28,5 +28,8 @@
         </tr>
     </c:forEach>
 </table>
+<form method="post" action="${pageContext.request.contextPath}/orders/checkout">
+    <button type="submit" name="checkout" value="${cartId}">Checkout</button>
+</form>
 </body>
 </html>

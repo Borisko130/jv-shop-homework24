@@ -93,4 +93,22 @@
         <servlet-name>deleteFromCart</servlet-name>
         <url-pattern>/shopping-cart/products/delete</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>createOrder</servlet-name>
+        <servlet-class>com.internet.shop.controller.CheckoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>createOrder</servlet-name>
+        <url-pattern>/orders/checkout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>allOrders</servlet-name>
+        <servlet-class>com.internet.shop.controller.CheckoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allOrders</servlet-name>
+        <url-pattern>/orders/all</url-pattern>
+    </servlet-mapping>
 </web-app>
