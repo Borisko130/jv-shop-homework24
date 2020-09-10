@@ -2,10 +2,10 @@ package com.internet.shop.controller;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
+import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.service.ShoppingCartService;
 import java.io.IOException;
 import java.util.List;
-import java.util.NoSuchElementException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +20,8 @@ public class ShowCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        List<Product> cart = null;
-        try {
-            cart = shoppingCartService.getByUserId(USER_ID).getProducts();
-        } catch (NoSuchElementException e) {
-            req.setAttribute("message", "Your cart is empty");
-        }
+        ShoppingCart shoppingCart = shoppingCartService.getByUserId(USER_ID);
+        List<Product> cart = shoppingCart.getProducts();
         req.setAttribute("cart", cart);
         req.getRequestDispatcher("/WEB-INF/views/shopping-cart/products/cart.jsp")
                 .forward(req, resp);
