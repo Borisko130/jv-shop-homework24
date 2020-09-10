@@ -14,7 +14,7 @@
             <a href="${pageContext.request.contextPath}/users/add">Proceed to registration</a>
         </td>
         <td>
-            <a href="${pageContext.request.contextPath}/users/all">Check users</a>
+            <a href="${pageContext.request.contextPath}/users">Check users</a>
         </td>
     </tr>
     <tr>
@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <td>
-            <a href="${pageContext.request.contextPath}/shopping-carts/products/">Check order</a>
+            <a href="${pageContext.request.contextPath}/shopping-cart/products/">Check order</a>
         </td>
     </tr>
 </table>

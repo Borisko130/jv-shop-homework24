@@ -27,7 +27,7 @@ public class ShowCartController extends HttpServlet {
             req.setAttribute("message", "Your cart is empty");
         }
         req.setAttribute("cart", cart);
-        req.getRequestDispatcher("/WEB-INF/views/shopping-carts/products/cart.jsp")
+        req.getRequestDispatcher("/WEB-INF/views/shopping-cart/products/cart.jsp")
                 .forward(req, resp);
     }
 }
