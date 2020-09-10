@@ -33,6 +33,19 @@
             <a href="${pageContext.request.contextPath}/orders/all">Check orders</a>
         </td>
     </tr>
+    <tr>
+        <td colspan="2" align="center">
+           <b>ADMIN ONLY</b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="${pageContext.request.contextPath}/products/manage">Products management</a>
+        </td>
+        <td>
+            <a href="${pageContext.request.contextPath}/orders/manage">Orders management</a>
+        </td>
+    </tr>
 </table>
 </body>
 </html>
