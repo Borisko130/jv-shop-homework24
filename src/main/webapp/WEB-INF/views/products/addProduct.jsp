@@ -6,6 +6,8 @@
 <body>
 <h1>You can add products here</h1>
 
+<h1 style="color:darkred">${message}</h1>
+
 <form method="post" action="${pageContext.request.contextPath}/products/add">
     <table bgcolor="#d3d3d3">
         <tr>
