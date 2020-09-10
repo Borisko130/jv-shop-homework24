@@ -31,13 +31,18 @@ public class AddUserController extends HttpServlet {
         String pass = req.getParameter("pass");
         String passRep = req.getParameter("pass-repeat");
 
-        if (pass.equals(passRep)) {
+        if (name.length() == 0
+                || login.length() == 0
+                || pass.length() == 0) {
+            req.setAttribute("message", "Name, login or password field is empty");
+            req.getRequestDispatcher("/WEB-INF/views/users/addUser.jsp").forward(req, resp);
+        } else if (pass.equals(passRep)) {
             User user = new User(name, login, pass);
             userService.create(user);
             shoppingCartService.create(new ShoppingCart(user.getId()));
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
-            req.setAttribute("message", "Your password and repeated password are not same");
+            req.setAttribute("message", "Your password and confirmation password are not same");
             req.getRequestDispatcher("/WEB-INF/views/users/addUser.jsp").forward(req, resp);
         }
     }
