@@ -2,8 +2,10 @@ package com.internet.shop.controller;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
+import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
 import com.internet.shop.service.ProductService;
+import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
 import java.io.IOException;
 import java.util.List;
@@ -17,6 +19,8 @@ public class InjectDataController extends HttpServlet {
     private UserService userService = (UserService) injector.getInstance(UserService.class);
     private ProductService productService
             = (ProductService) injector.getInstance(ProductService.class);
+    private ShoppingCartService shoppingCartService
+            = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -26,6 +30,8 @@ public class InjectDataController extends HttpServlet {
         User user2 = new User("NotBoris", "userito", "passito");
         userService.create(user1);
         userService.create(user2);
+        shoppingCartService.create(new ShoppingCart(user1.getId()));
+        shoppingCartService.create(new ShoppingCart(user2.getId()));
         Product bread = new Product("Bread", 10);
         Product meat = new Product("Meat", 133);
         productService.create(bread);
