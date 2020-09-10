@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <td>
-            <a href="${pageContext.request.contextPath}/shopping-cart/products/">Check order</a>
+            <a href="${pageContext.request.contextPath}/shopping-cart/products/">Check cart</a>
         </td>
     </tr>
 </table>
