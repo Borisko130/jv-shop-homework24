@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Homepage</title>
 </head>
 <body>
 <h1>Hello World</h1>
@@ -30,7 +30,7 @@
             <a href="${pageContext.request.contextPath}/shopping-cart/products/">Check cart</a>
         </td>
         <td>
-            <a href="${pageContext.request.contextPath}/orders/all">Check cart</a>
+            <a href="${pageContext.request.contextPath}/orders/all">Check orders</a>
         </td>
     </tr>
 </table>

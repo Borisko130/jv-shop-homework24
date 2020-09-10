@@ -4,6 +4,7 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <!--||||||||||||||||||||||||||||||||| UTIL |||||||||||||||||||||||||||||||||-->
     <servlet>
         <servlet-name>index</servlet-name>
         <servlet-class>com.internet.shop.controller.IndexController</servlet-class>
@@ -14,21 +15,23 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>injectData</servlet-name>
+        <servlet-class>com.internet.shop.controller.InjectDataController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>injectData</servlet-name>
+        <url-pattern>/injectData</url-pattern>
+    </servlet-mapping>
+
+    <!--||||||||||||||||||||||||||||||||| USERS |||||||||||||||||||||||||||||||||-->
+
+    <servlet>
         <servlet-name>allUsers</servlet-name>
         <servlet-class>com.internet.shop.controller.GetAllUsersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allUsers</servlet-name>
         <url-pattern>/users</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>allProducts</servlet-name>
-        <servlet-class>com.internet.shop.controller.GetAllProductsController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>allProducts</servlet-name>
-        <url-pattern>/products/all</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -41,21 +44,23 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>injectData</servlet-name>
-        <servlet-class>com.internet.shop.controller.InjectDataController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>injectData</servlet-name>
-        <url-pattern>/injectData</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>deleteUser</servlet-name>
         <servlet-class>com.internet.shop.controller.DeleteUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>deleteUser</servlet-name>
         <url-pattern>/users/delete</url-pattern>
+    </servlet-mapping>
+
+    <!--||||||||||||||||||||||||||||||||| PRODUCTS |||||||||||||||||||||||||||||||||-->
+
+    <servlet>
+        <servlet-name>allProducts</servlet-name>
+        <servlet-class>com.internet.shop.controller.GetAllProductsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allProducts</servlet-name>
+        <url-pattern>/products/all</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -66,6 +71,8 @@
         <servlet-name>addProduct</servlet-name>
         <url-pattern>/products/add</url-pattern>
     </servlet-mapping>
+
+    <!--||||||||||||||||||||||||||||||||| CART |||||||||||||||||||||||||||||||||-->
 
     <servlet>
         <servlet-name>addToCart</servlet-name>
@@ -94,6 +101,8 @@
         <url-pattern>/shopping-cart/products/delete</url-pattern>
     </servlet-mapping>
 
+    <!--||||||||||||||||||||||||||||||||| ORDER |||||||||||||||||||||||||||||||||-->
+
     <servlet>
         <servlet-name>createOrder</servlet-name>
         <servlet-class>com.internet.shop.controller.CheckoutController</servlet-class>
@@ -105,7 +114,7 @@
 
     <servlet>
         <servlet-name>allOrders</servlet-name>
-        <servlet-class>com.internet.shop.controller.CheckoutController</servlet-class>
+        <servlet-class>com.internet.shop.controller.ShowUserOrdersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allOrders</servlet-name>
