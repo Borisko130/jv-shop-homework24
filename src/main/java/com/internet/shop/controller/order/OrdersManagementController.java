@@ -19,7 +19,6 @@ public class OrdersManagementController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         List<Order> orderList = orderService.getAll();
-        Order order = new Order(1L);
         req.setAttribute("orders", orderList);
         req.getRequestDispatcher("/WEB-INF/views/orders/ordersManagement.jsp").forward(req, resp);
     }
