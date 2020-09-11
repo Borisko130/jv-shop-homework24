@@ -17,7 +17,6 @@ public class CheckoutController extends HttpServlet {
     private OrderService orderService
             = (OrderService) injector.getInstance(OrderService.class);
 
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
