@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CheckoutController extends HttpServlet {
+public class CompleteOrderController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private static final Long USER_ID = 1L;
     private ShoppingCartService shoppingCartService

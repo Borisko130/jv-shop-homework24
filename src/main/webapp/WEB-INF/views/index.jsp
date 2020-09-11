@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Hello World</h1>
-<a href="${pageContext.request.contextPath}/inject_data">
+<a href="${pageContext.request.contextPath}/inject-data">
     <img src="https://media.2oceansvibe.com/wp-content/uploads/2019/07/teletubbies.jpg">
 </a>
 <table border="1" bgcolor="#d3d3d3">

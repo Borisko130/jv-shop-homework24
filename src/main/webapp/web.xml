@@ -20,7 +20,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>injectData</servlet-name>
-        <url-pattern>/inject_data</url-pattern>
+        <url-pattern>/inject-data</url-pattern>
     </servlet-mapping>
 
     <!--||||||||||||||||||||||||||||||||| USERS |||||||||||||||||||||||||||||||||-->
@@ -123,7 +123,7 @@
 
     <servlet>
         <servlet-name>createOrder</servlet-name>
-        <servlet-class>com.internet.shop.controller.order.CheckoutController</servlet-class>
+        <servlet-class>com.internet.shop.controller.order.CompleteOrderController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>createOrder</servlet-name>
