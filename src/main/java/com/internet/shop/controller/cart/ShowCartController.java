@@ -23,7 +23,6 @@ public class ShowCartController extends HttpServlet {
         ShoppingCart shoppingCart = shoppingCartService.getByUserId(USER_ID);
         List<Product> cart = shoppingCart.getProducts();
         req.setAttribute("cart", cart);
-        req.setAttribute("cartId", shoppingCart.getId());
         req.getRequestDispatcher("/WEB-INF/views/shopping-cart/products/cart.jsp")
                 .forward(req, resp);
     }
