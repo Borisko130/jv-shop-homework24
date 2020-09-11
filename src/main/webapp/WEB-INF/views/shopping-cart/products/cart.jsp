@@ -29,7 +29,7 @@
     </c:forEach>
 </table>
 <form method="post" action="${pageContext.request.contextPath}/orders/checkout">
-    <button type="submit" name="checkout" value="${cartId}">Checkout</button>
+    <button type="submit" name="checkout">Checkout</button>
 </form>
 </body>
 </html>
