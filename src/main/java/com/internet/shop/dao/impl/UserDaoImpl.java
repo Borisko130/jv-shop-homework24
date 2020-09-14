@@ -45,4 +45,11 @@ public class UserDaoImpl implements UserDao {
     public boolean delete(User user) {
         return Storage.userStorage.remove(user);
     }
+
+    @Override
+    public Optional<User> findByLogin(String login) {
+        return Storage.userStorage.stream()
+                .filter(u -> u.getLogin().equals(login))
+                .findFirst();
+    }
 }
