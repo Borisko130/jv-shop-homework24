@@ -1,4 +1,4 @@
-package com.internet.shop.controller;
+package com.internet.shop.controller.util;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
@@ -37,6 +37,6 @@ public class InjectDataController extends HttpServlet {
         productService.create(bread);
         productService.create(meat);
 
-        req.getRequestDispatcher("/WEB-INF/views/injectData.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/inject-data.jsp").forward(req, resp);
     }
 }

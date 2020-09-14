@@ -12,8 +12,9 @@
     <tr>
         <th>Name</th>
         <th>Price</th>
+        <th>Remove from cart</th>
     </tr>
-    <c:forEach var ="product" items="${cart}">
+    <c:forEach var="product" items="${cart}" varStatus="count">
         <tr>
             <td>
                 <c:out value="${product.name}"/>
@@ -21,8 +22,14 @@
             <td>
                 <c:out value="${product.price}"/>
             </td>
+            <td>
+                <a href="${pageContext.request.contextPath}/shopping-cart/products/delete?id=${count.index}">Delete</a>
+            </td>
         </tr>
     </c:forEach>
 </table>
+<form method="post" action="${pageContext.request.contextPath}/orders/checkout">
+    <button type="submit" name="checkout">Checkout</button>
+</form>
 </body>
 </html>

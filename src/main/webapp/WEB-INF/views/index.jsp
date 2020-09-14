@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Homepage</title>
 </head>
 <body>
 <h1>Hello World</h1>
-<a href="${pageContext.request.contextPath}/injectData">
+<a href="${pageContext.request.contextPath}/inject-data">
     <img src="https://media.2oceansvibe.com/wp-content/uploads/2019/07/teletubbies.jpg">
 </a>
 <table border="1" bgcolor="#d3d3d3">
@@ -27,7 +27,23 @@
     </tr>
     <tr>
         <td>
-            <a href="${pageContext.request.contextPath}/shopping-cart/products/">Check order</a>
+            <a href="${pageContext.request.contextPath}/shopping-cart/products/">Check cart</a>
+        </td>
+        <td>
+            <a href="${pageContext.request.contextPath}/orders/all">Check orders</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+           <b>ADMIN ONLY</b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="${pageContext.request.contextPath}/products/manage">Products management</a>
+        </td>
+        <td>
+            <a href="${pageContext.request.contextPath}/orders/manage">Orders management</a>
         </td>
     </tr>
 </table>
