@@ -6,7 +6,6 @@ import com.internet.shop.lib.Service;
 import com.internet.shop.model.User;
 import com.internet.shop.security.AuthenticationService;
 import com.internet.shop.service.UserService;
-
 import java.util.Optional;
 
 @Service
