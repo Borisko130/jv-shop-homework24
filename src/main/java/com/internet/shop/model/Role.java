@@ -4,8 +4,6 @@ public class Role {
     private Long id;
     private RoleName roleName;
 
-
-
     public Long getId() {
         return id;
     }

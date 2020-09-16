@@ -4,7 +4,6 @@ import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Role;
 import com.internet.shop.model.User;
 import com.internet.shop.service.UserService;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +54,9 @@ public class AuthorizationFilter implements Filter {
             filterChain.doFilter(req, resp);
             return;
         } else {
-
+            req.getRequestDispatcher("/WEB-INF/views/error-pages/access-denied.jsp")
+                    .forward(req, resp);
+            return;
         }
     }
 
