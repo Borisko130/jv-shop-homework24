@@ -107,7 +107,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>showCart</servlet-name>
-        <url-pattern>/shopping-cart/products/</url-pattern>
+        <url-pattern>/shopping-cart/products</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -187,11 +187,11 @@
     </servlet-mapping>
 
     <!--||||||||||||||||||||||||||||||||| FILTER |||||||||||||||||||||||||||||||||-->
+
     <filter>
         <filter-name>authenticationFilter</filter-name>
         <filter-class>com.internet.shop.web.filter.AuthenticationFilter</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>authenticationFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -201,7 +201,6 @@
         <filter-name>authorizationFilter</filter-name>
         <filter-class>com.internet.shop.web.filter.AuthorizationFilter</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>authorizationFilter</filter-name>
         <url-pattern>/*</url-pattern>

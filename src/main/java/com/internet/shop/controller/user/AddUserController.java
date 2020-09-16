@@ -41,6 +41,7 @@ public class AddUserController extends HttpServlet {
         } else if (pass.equals(passRep)) {
             User user = new User(name, login, pass);
             userService.create(user);
+            // If this user has id 1, then it will be ADMIN
             if (user.getId() == 1L) {
                 user.setRoles(List.of(Role.of("ADMIN")));
             } else {
