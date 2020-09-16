@@ -2,6 +2,7 @@ package com.internet.shop.controller.util;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
+import com.internet.shop.model.Role;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
 import com.internet.shop.service.ProductService;
@@ -26,8 +27,10 @@ public class InjectDataController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         List<User> allUsers = userService.getAll();
-        User user1 = new User("Boris", "username", "pass");
-        User user2 = new User("NotBoris", "userito", "passito");
+        User user1 = new User("Boris", "u1", "1");
+        User user2 = new User("NotBoris", "u2", "1");
+        user1.setRoles(List.of(Role.of("ADMIN")));
+        user1.setRoles(List.of(Role.of("USER")));
         userService.create(user1);
         userService.create(user2);
         shoppingCartService.create(new ShoppingCart(user1.getId()));
