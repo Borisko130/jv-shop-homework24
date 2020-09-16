@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CompleteOrderController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
-    private static final Long USER_ID = 1L;
+    private static final String USER_ID = "user_id";
     private ShoppingCartService shoppingCartService
             = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
     private OrderService orderService
@@ -20,7 +20,8 @@ public class CompleteOrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        orderService.completeOrder(shoppingCartService.getByUserId(USER_ID));
+        Long userId = (Long) req.getSession().getAttribute(USER_ID);
+        orderService.completeOrder(shoppingCartService.getByUserId(userId));
         resp.sendRedirect(req.getContextPath() + "/");
     }
 }

@@ -13,14 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ShowCartController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
-    private static final Long USER_ID = 1L;
+    private static final String USER_ID = "user_id";
     private ShoppingCartService shoppingCartService
             = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        ShoppingCart shoppingCart = shoppingCartService.getByUserId(USER_ID);
+        Long userId = (Long) req.getSession().getAttribute(USER_ID);
+        ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
         List<Product> cart = shoppingCart.getProducts();
         req.setAttribute("cart", cart);
         req.getRequestDispatcher("/WEB-INF/views/shopping-cart/products/cart.jsp")
