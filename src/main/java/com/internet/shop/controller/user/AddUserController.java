@@ -7,7 +7,7 @@ import com.internet.shop.model.User;
 import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,9 +43,9 @@ public class AddUserController extends HttpServlet {
             userService.create(user);
             // If this user has id 1, then it will be ADMIN
             if (user.getId() == 1L) {
-                user.setRoles(List.of(Role.of("ADMIN")));
+                user.setRoles(Set.of(Role.of("ADMIN")));
             } else {
-                user.setRoles(List.of(Role.of("USER")));
+                user.setRoles(Set.of(Role.of("USER")));
             }
             shoppingCartService.create(new ShoppingCart(user.getId()));
             resp.sendRedirect(req.getContextPath() + "/");
