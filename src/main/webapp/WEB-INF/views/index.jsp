@@ -32,6 +32,12 @@
         </td>
     </tr>
     <tr>
+    <tr>
+        <td>
+            <a href="${pageContext.request.contextPath}/logout">Logout</a>
+        </td>
+    </tr>
+    <tr>
         <td colspan="2" align="center">
            <b>ADMIN ONLY</b>
         </td>
