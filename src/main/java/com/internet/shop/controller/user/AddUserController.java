@@ -40,12 +40,7 @@ public class AddUserController extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/views/users/addUser.jsp").forward(req, resp);
         } else if (pass.equals(passRep)) {
             User user = new User(name, login, pass);
-            // If this is first user, then it will be ADMIN
-            if (userService.getAll().size() == 0) {
-                user.setRoles(Set.of(Role.of("ADMIN")));
-            } else {
-                user.setRoles(Set.of(Role.of("USER")));
-            }
+            user.setRoles(Set.of(Role.of("USER")));
             userService.create(user);
             shoppingCartService.create(new ShoppingCart(user.getId()));
             resp.sendRedirect(req.getContextPath() + "/");

@@ -23,5 +23,6 @@
     <button type="submit" name="login">Log in</button>
 </form>
 <a href="${pageContext.request.contextPath}/users/add">You can register here</a>
+<a href="${pageContext.request.contextPath}/inject-data">Inject Data</a>
 </body>
 </html>
