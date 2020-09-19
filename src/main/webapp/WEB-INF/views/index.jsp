@@ -9,28 +9,21 @@
 <table border="1" bgcolor="#d3d3d3">
     <tr>
         <td>
-            <a href="${pageContext.request.contextPath}/users/add">Proceed to registration</a>
-        </td>
-        <td>
-            <a href="${pageContext.request.contextPath}/users">Check users</a>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <a href="${pageContext.request.contextPath}/products/add">Add products</a>
-        </td>
-        <td>
             <a href="${pageContext.request.contextPath}/products/all">Check warehouse</a>
         </td>
+        <td>
+            <a href="${pageContext.request.contextPath}/shopping-cart/products">Check cart</a>
+        </td>
     </tr>
     <tr>
-        <td>
-            <a href="${pageContext.request.contextPath}/shopping-cart/products/">Check cart</a>
-        </td>
         <td>
             <a href="${pageContext.request.contextPath}/orders/all">Check orders</a>
         </td>
+        <td>
+            <a href="${pageContext.request.contextPath}/logout">Logout</a>
+        </td>
     </tr>
+    <tr>
     <tr>
         <td colspan="2" align="center">
            <b>ADMIN ONLY</b>
@@ -42,6 +35,14 @@
         </td>
         <td>
             <a href="${pageContext.request.contextPath}/orders/manage">Orders management</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="${pageContext.request.contextPath}/users">Check users</a>
+        </td>
+        <td>
+            <a href="${pageContext.request.contextPath}/products/add">Add products</a>
         </td>
     </tr>
 </table>
