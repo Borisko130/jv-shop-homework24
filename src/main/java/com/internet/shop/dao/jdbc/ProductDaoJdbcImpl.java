@@ -1,6 +1,7 @@
 package com.internet.shop.dao.jdbc;
 
 import com.internet.shop.dao.ProductDao;
+import com.internet.shop.exceptions.DataProcessingException;
 import com.internet.shop.lib.Dao;
 import com.internet.shop.model.Product;
 import com.internet.shop.util.ConnectionUtil;
@@ -24,7 +25,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setDouble(2, product.getPrice());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException("Incorrect create query", e);
+            throw new DataProcessingException("Incorrect create query", e);
         }
         return product;
     }
@@ -38,15 +39,13 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
             if (resultSet.next()) {
-                String productName = resultSet.getString("product_name");
-                double productPrice = resultSet.getDouble("product_price");
-                Product product = new Product(productName, productPrice);
+                Product product = productFromSet(resultSet);
                 product.setId(id);
                 return Optional.of(product);
             }
             return Optional.empty();
         } catch (SQLException e) {
-            throw new RuntimeException("Incorrect get query", e);
+            throw new DataProcessingException("Incorrect get query", e);
         }
     }
 
@@ -59,14 +58,12 @@ public class ProductDaoJdbcImpl implements ProductDao {
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
                 long productId = resultSet.getLong("product_id");
-                String productName = resultSet.getString("product_name");
-                double productPrice = resultSet.getDouble("product_price");
-                Product product = new Product(productName, productPrice);
+                Product product = productFromSet(resultSet);
                 product.setId(productId);
                 productList.add(product);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Incorrect getAll query", e);
+            throw new DataProcessingException("Incorrect getAll query", e);
         }
         return productList;
     }
@@ -82,7 +79,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(3, product.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException("Incorrect update query", e);
+            throw new DataProcessingException("Incorrect update query", e);
         }
         return product;
     }
@@ -95,7 +92,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(1, id);
             return preparedStatement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException("Incorrect deleteById query", e);
+            throw new DataProcessingException("Incorrect deleteById query", e);
         }
     }
 
@@ -108,7 +105,17 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setDouble(2, product.getPrice());
             return preparedStatement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException("Incorrect delete query", e);
+            throw new DataProcessingException("Incorrect delete query", e);
+        }
+    }
+
+    private Product productFromSet(ResultSet resultSet) {
+        try {
+            String productName = resultSet.getString("product_name");
+            double productPrice = resultSet.getDouble("product_price");
+            return new Product(productName, productPrice);
+        } catch (SQLException e) {
+            throw new DataProcessingException("Failed to generate product", e);
         }
     }
 }
