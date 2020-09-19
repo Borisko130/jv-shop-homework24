@@ -25,7 +25,11 @@ public class ProductDaoJdbcImpl implements ProductDao {
                     Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrice());
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                product.setId(resultSet.getLong(1));
+            }
         } catch (SQLException e) {
             throw new DataProcessingException("Incorrect create query", e);
         }
@@ -36,11 +40,10 @@ public class ProductDaoJdbcImpl implements ProductDao {
     public Optional<Product> get(Long id) {
         String query = "SELECT * FROM products WHERE product_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query,
-                    Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            ResultSet resultSet = preparedStatement.getResultSet();
             if (resultSet.next()) {
                 Product product = productFromSet(resultSet);
                 product.setId(id);
