@@ -5,8 +5,8 @@ import com.internet.shop.model.Product;
 import com.internet.shop.service.ProductService;
 
 public class Main {
-    private static final Injector INJECTOR = Injector.getInstance("com.internet.shop");
-    private static final ProductService PRODUCT_SERVICE = (ProductService) INJECTOR
+    private static final Injector injector = Injector.getInstance("com.internet.shop");
+    private static final ProductService PRODUCT_SERVICE = (ProductService) injector
             .getInstance(ProductService.class);
 
     public static void main(String[] args) {
