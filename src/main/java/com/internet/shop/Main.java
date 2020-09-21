@@ -30,7 +30,6 @@ public class Main {
         System.out.println(productDao.getAll());
 
         // DELETE AND DELETEBYID CHECK
-        productDao.delete(new Product("Salt", 10.0));
         productDao.deleteById(1L);
 
         System.out.println(productDao.getAll());
