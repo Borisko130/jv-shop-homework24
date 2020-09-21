@@ -67,7 +67,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
                 productList.add(product);
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Incorrect getAll query", e);
+            throw new DataProcessingException("Can't get all products", e);
         }
         return productList;
     }
@@ -103,17 +103,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public boolean delete(Product product) {
-        String query = "UPDATE products WHERE product_name = ? AND product_price = ?"
-                + " AND deleted = false";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, product.getName());
-            preparedStatement.setDouble(2, product.getPrice());
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new DataProcessingException("Can't get product "
-                    + product.getName(), e);
-        }
+        return deleteById(product.getId());
     }
 
     private Product getProductFromSet(ResultSet resultSet) {
