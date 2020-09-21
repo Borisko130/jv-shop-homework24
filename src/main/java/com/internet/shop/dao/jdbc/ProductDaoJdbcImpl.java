@@ -103,19 +103,6 @@ public class ProductDaoJdbcImpl implements ProductDao {
         }
     }
 
-    @Override
-    public boolean delete(Product product) {
-        String query = "DELETE FROM products WHERE product_name = ? AND product_price = ?";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, product.getName());
-            preparedStatement.setDouble(2, product.getPrice());
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new DataProcessingException("Incorrect delete query", e);
-        }
-    }
-
     private Product getProductFromSet(ResultSet resultSet) {
         try {
             String productName = resultSet.getString("product_name");

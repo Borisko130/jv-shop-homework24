@@ -13,6 +13,4 @@ public interface GenericDao<T, K> {
     T update(T t);
 
     boolean deleteById(K id);
-
-    boolean delete(T t);
 }
