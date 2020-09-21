@@ -6,31 +6,31 @@ import com.internet.shop.service.ProductService;
 
 public class Main {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
-    private static final ProductService PRODUCT_SERVICE = (ProductService) injector
+    private static final ProductService product_service = (ProductService) injector
             .getInstance(ProductService.class);
 
     public static void main(String[] args) {
         // create check
-        PRODUCT_SERVICE.create(new Product("Meat", 10.0));
-        PRODUCT_SERVICE.create(new Product("Bread", 10.0));
-        PRODUCT_SERVICE.create(new Product("Salt", 10.0));
+        product_service.create(new Product("Meat", 10.0));
+        product_service.create(new Product("Bread", 10.0));
+        product_service.create(new Product("Salt", 10.0));
 
         //get check
-        Product salt = PRODUCT_SERVICE.get(3L);
+        Product salt = product_service.get(3L);
         System.out.println(salt);
-        System.out.println(PRODUCT_SERVICE.getAll());
+        System.out.println(product_service.getAll());
 
         // update check
         Product cheese = new Product("Cheese", 15.0);
         cheese.setId(2L);
-        System.out.println(PRODUCT_SERVICE.update(cheese));
+        System.out.println(product_service.update(cheese));
 
         // getAll check
-        System.out.println(PRODUCT_SERVICE.getAll());
+        System.out.println(product_service.getAll());
 
         // deleteById check
-        PRODUCT_SERVICE.deleteById(1L);
+        product_service.deleteById(1L);
 
-        System.out.println(PRODUCT_SERVICE.getAll());
+        System.out.println(product_service.getAll());
     }
 }
