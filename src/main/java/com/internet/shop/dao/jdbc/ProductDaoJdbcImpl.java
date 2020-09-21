@@ -31,7 +31,8 @@ public class ProductDaoJdbcImpl implements ProductDao {
                 product.setId(resultSet.getLong(1));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Incorrect create query", e);
+            throw new DataProcessingException("Can't create product with name "
+                    + product.getName(), e);
         }
         return product;
     }
@@ -44,13 +45,14 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Product product = productFromSet(resultSet);
+                Product product = getProductFromSet(resultSet);
                 product.setId(id);
                 return Optional.of(product);
             }
             return Optional.empty();
         } catch (SQLException e) {
-            throw new DataProcessingException("Incorrect get query", e);
+            throw new DataProcessingException("Can't create product with id "
+                    + id, e);
         }
     }
 
@@ -63,7 +65,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
                 long productId = resultSet.getLong("product_id");
-                Product product = productFromSet(resultSet);
+                Product product = getProductFromSet(resultSet);
                 product.setId(productId);
                 productList.add(product);
             }
@@ -114,7 +116,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
         }
     }
 
-    private Product productFromSet(ResultSet resultSet) {
+    private Product getProductFromSet(ResultSet resultSet) {
         try {
             String productName = resultSet.getString("product_name");
             double productPrice = resultSet.getDouble("product_price");

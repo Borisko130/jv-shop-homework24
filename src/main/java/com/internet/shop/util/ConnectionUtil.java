@@ -22,8 +22,8 @@ public class ConnectionUtil {
 
         try {
             return DriverManager.getConnection(url, dbProperties);
-        } catch (SQLException throwables) {
-            throw new RuntimeException("Failed to connect to DB", throwables);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to connect to DB", e);
         }
     }
 }
