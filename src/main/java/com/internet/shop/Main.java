@@ -1,37 +1,36 @@
 package com.internet.shop;
 
-import com.internet.shop.dao.ProductDao;
-import com.internet.shop.lib.Inject;
-import com.internet.shop.lib.Service;
+import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
+import com.internet.shop.service.ProductService;
 
-@Service
 public class Main {
-    @Inject
-    private static ProductDao productDao;
+    private static final Injector INJECTOR = Injector.getInstance("com.internet.shop");
+    private static final ProductService PRODUCT_SERVICE = (ProductService) INJECTOR
+            .getInstance(ProductService.class);
 
     public static void main(String[] args) {
-        productDao.create(new Product("Meat", 10.0));
-        productDao.create(new Product("Bread", 10.0));
-        productDao.create(new Product("Salt", 10.0));
+        // create check
+        PRODUCT_SERVICE.create(new Product("Meat", 10.0));
+        PRODUCT_SERVICE.create(new Product("Bread", 10.0));
+        PRODUCT_SERVICE.create(new Product("Salt", 10.0));
 
-        //GET CHECK
-        Product salt = productDao.get(3L).get();
-        System.out.println(productDao.get(3L));
+        //get check
+        Product salt = PRODUCT_SERVICE.get(3L);
+        System.out.println(salt);
+        System.out.println(PRODUCT_SERVICE.getAll());
 
-        System.out.println(productDao.getAll());
-
-        // UPDATE PRODUCT CHECK
+        // update check
         Product cheese = new Product("Cheese", 15.0);
         cheese.setId(2L);
-        System.out.println(productDao.update(cheese));
+        System.out.println(PRODUCT_SERVICE.update(cheese));
 
-        // GET ALL CHECK
-        System.out.println(productDao.getAll());
+        // getAll check
+        System.out.println(PRODUCT_SERVICE.getAll());
 
-        // DELETE AND DELETEBYID CHECK
-        productDao.deleteById(1L);
+        // deleteById check
+        PRODUCT_SERVICE.deleteById(1L);
 
-        System.out.println(productDao.getAll());
+        System.out.println(PRODUCT_SERVICE.getAll());
     }
 }
