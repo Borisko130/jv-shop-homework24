@@ -12,11 +12,13 @@ CREATE TABLE `my_shop`.`users` (
                                    `user_name` VARCHAR(225) NOT NULL,
                                    `user_login` VARCHAR(225) NOT NULL,
                                    `user_password` VARCHAR(225) NOT NULL,
+                                   `deleted` BOOLEAN NOT NULL DEFAULT false,
                                    PRIMARY KEY (`user_id`));
 
 CREATE TABLE `my_shop`.`orders` (
                                     `order_id` BIGINT(11) NOT NULL AUTO_INCREMENT,
                                     `user_id` BIGINT(11) NOT NULL,
+                                    `deleted` BOOLEAN NOT NULL DEFAULT false,
                                     PRIMARY KEY (`order_id`),
                                     INDEX `orders_users_fk_idx` (`user_id` ASC) VISIBLE,
                                     CONSTRAINT `orders_users_fk`
@@ -34,6 +36,7 @@ CREATE TABLE `my_shop`.`roles` (
 CREATE TABLE `my_shop`.`shopping_carts` (
                                             `cart_id` BIGINT(11) NOT NULL AUTO_INCREMENT,
                                             `user_id` BIGINT(11) NOT NULL,
+                                            `deleted` BOOLEAN NOT NULL DEFAULT false,
                                             PRIMARY KEY (`cart_id`),
                                             INDEX `carts_users_fk_idx` (`user_id` ASC) VISIBLE,
                                             CONSTRAINT `carts_users_fk`

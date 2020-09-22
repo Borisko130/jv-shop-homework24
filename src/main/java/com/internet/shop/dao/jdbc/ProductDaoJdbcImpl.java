@@ -83,7 +83,8 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(3, product.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't update product with id ", e);
+            throw new DataProcessingException("Can't update product with id "
+                    + product.getId(), e);
         }
         return product;
     }
@@ -97,7 +98,8 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't delete product with id ", e);
+            throw new DataProcessingException("Can't delete product with id "
+                    + id, e);
         }
     }
 
