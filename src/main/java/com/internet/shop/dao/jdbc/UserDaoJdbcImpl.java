@@ -2,6 +2,7 @@ package com.internet.shop.dao.jdbc;
 
 import com.internet.shop.dao.UserDao;
 import com.internet.shop.exceptions.DataProcessingException;
+import com.internet.shop.lib.Dao;
 import com.internet.shop.model.User;
 import com.internet.shop.util.ConnectionUtil;
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Dao
 public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User create(User user) {
@@ -110,7 +112,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> findByLogin(String login) {
-        String query = "SELECT * FROM users WHERE user_name = ? AND deleted = false";
+        String query = "SELECT * FROM users WHERE user_login = ? AND deleted = false";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, login);
