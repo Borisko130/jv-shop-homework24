@@ -165,8 +165,9 @@ public class OrderDaoJdbcImpl implements OrderDao {
     }
 
     private List<Product> getProductsListFromDb(Order order) {
-        String query = "SELECT * FROM products WHERE product_id IN " +
-                "(SELECT product_id FROM orders_products WHERE order_id = ? AND deleted = false);";
+        String query = "SELECT * FROM products WHERE product_id IN "
+                + "(SELECT product_id FROM orders_products WHERE order_id = ? "
+                + "AND deleted = false);";
         List<Product> productList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);

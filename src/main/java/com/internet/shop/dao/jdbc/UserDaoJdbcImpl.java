@@ -173,8 +173,8 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     private Set<Role> getRolesFromDb(User user) {
-        String query = "SELECT * FROM roles WHERE role_id IN " +
-                "(SELECT role_id FROM users_roles WHERE user_id = ?);";
+        String query = "SELECT * FROM roles WHERE role_id IN "
+                + "(SELECT role_id FROM users_roles WHERE user_id = ?);";
         Set<Role> userRoles = new HashSet<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -206,6 +206,4 @@ public class UserDaoJdbcImpl implements UserDao {
         }
         return user;
     }
-
-
 }

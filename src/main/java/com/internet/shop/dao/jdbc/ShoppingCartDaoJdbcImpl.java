@@ -164,8 +164,9 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     }
 
     private List<Product> getProductsListFromDb(ShoppingCart shoppingCart) {
-        String query = "SELECT * FROM products WHERE product_id IN " +
-                "(SELECT product_id FROM shopping_carts_products WHERE cart_id = ? AND deleted = false);";
+        String query = "SELECT * FROM products WHERE product_id IN "
+                + "(SELECT product_id FROM shopping_carts_products WHERE cart_id = ? "
+                + "AND deleted = false);";
         List<Product> productList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
