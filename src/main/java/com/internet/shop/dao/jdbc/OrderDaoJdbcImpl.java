@@ -2,6 +2,7 @@ package com.internet.shop.dao.jdbc;
 
 import com.internet.shop.dao.OrderDao;
 import com.internet.shop.exceptions.DataProcessingException;
+import com.internet.shop.lib.Dao;
 import com.internet.shop.model.Order;
 import com.internet.shop.model.Product;
 import com.internet.shop.util.ConnectionUtil;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Dao
 public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public Order create(Order order) {
@@ -32,7 +34,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             throw new DataProcessingException("Can't create order with id "
                     + order.getId(), e);
         }
-        return order;
+        return setProductsForOrderInDb(order);
     }
 
     @Override

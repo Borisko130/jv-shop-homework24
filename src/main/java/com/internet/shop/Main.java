@@ -59,6 +59,6 @@ public class Main {
         shoppingCartService.update(shoppingCart);
         System.out.println(shoppingCartService.getAll());
         */
-        shoppingCartService.addProduct(shoppingCartService.get(1L), productService.get(3L));
+        //shoppingCartService.addProduct(shoppingCartService.get(1L), productService.get(3L));
     }
 }
