@@ -28,7 +28,7 @@ CREATE TABLE `my_shop`.`orders` (
                                             ON UPDATE NO ACTION);
 
 CREATE TABLE `my_shop`.`roles` (
-                                   `role_id` BIGINT(11) NOT NULL,
+                                   `role_id` BIGINT(11) NOT NULL AUTO_INCREMENT,
                                    `role_name` VARCHAR(255) NOT NULL,
                                    PRIMARY KEY (`role_id`));
 
@@ -95,3 +95,8 @@ CREATE TABLE `my_shop`.`users_roles` (
                                                  REFERENCES `my_shop`.`roles` (`role_id`)
                                                  ON DELETE NO ACTION
                                                  ON UPDATE NO ACTION);
+
+
+USE my_shop;
+INSERT INTO roles (role_name) VALUES ('ADMIN');
+INSERT INTO roles (role_name) VALUES ('USER');

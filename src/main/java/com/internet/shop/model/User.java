@@ -16,6 +16,21 @@ public class User {
         this.password = password;
     }
 
+    public User(String name, String login, String password, Set<Role> roles) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public User(Long id, String name, String login, String password, Set<Role> roles) {
+        this.id = id;
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.roles = roles;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -58,11 +73,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{"
-                + "id=" + id
+        return "User{ id=" + id
                 + ", name='" + name + '\''
                 + ", login='" + login + '\''
-                + ", password='" + password + '\'' + '}';
+                + ", password='" + password + '\''
+                + ", roles=" + roles + "}\n";
     }
 
     @Override
