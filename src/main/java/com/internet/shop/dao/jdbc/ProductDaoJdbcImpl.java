@@ -109,6 +109,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
     }
 
     private Product getProductFromSet(ResultSet resultSet) {
+        // TODO set product ID in constructor
         try {
             String productName = resultSet.getString("product_name");
             double productPrice = resultSet.getDouble("product_price");

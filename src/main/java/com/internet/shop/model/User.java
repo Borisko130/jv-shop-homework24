@@ -10,6 +10,9 @@ public class User {
     private String password;
     private Set<Role> roles;
 
+    public User() {
+    }
+
     public User(String name, String login, String password) {
         this.name = name;
         this.login = login;
