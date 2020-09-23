@@ -44,21 +44,21 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Optional<User> get(Long id) {
         String query = "SELECT * FROM users WHERE user_id = ? AND deleted = false;";
+        User user = new User();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                User user = getUserFromSet(resultSet);
-                Set<Role> roles = getRolesFromDb(user);
-                user.setRoles(roles);
-                return Optional.of(user);
+                user = getUserFromSet(resultSet);
             }
-            return Optional.empty();
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get user with id "
                     + id, e);
         }
+        Set<Role> roles = getRolesFromDb(user);
+        user.setRoles(roles);
+        return Optional.of(user);
     }
 
     @Override
@@ -70,12 +70,14 @@ public class UserDaoJdbcImpl implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
                 User user = getUserFromSet(resultSet);
-                Set<Role> roles = getRolesFromDb(user);
-                user.setRoles(roles);
                 userList.add(user);
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get all users", e);
+        }
+        for (User user : userList) {
+            Set<Role> roles = getRolesFromDb(user);
+            user.setRoles(roles);
         }
         return userList;
     }
@@ -121,19 +123,21 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) {
         String query = "SELECT * FROM users WHERE user_login = ? AND deleted = false;";
+        User user = new User();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                User user = getUserFromSet(resultSet);
-                return Optional.of(user);
+                user = getUserFromSet(resultSet);
             }
-            return Optional.empty();
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get user with login "
                     + login, e);
         }
+        Set<Role> roles = getRolesFromDb(user);
+        user.setRoles(roles);
+        return Optional.of(user);
     }
 
     private User getUserFromSet(ResultSet resultSet) {

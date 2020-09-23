@@ -109,14 +109,11 @@ public class ProductDaoJdbcImpl implements ProductDao {
     }
 
     private Product getProductFromSet(ResultSet resultSet) {
-        // TODO set product ID in constructor
         try {
             String productName = resultSet.getString("product_name");
             double productPrice = resultSet.getDouble("product_price");
             Long productId = resultSet.getLong("product_id");
-            Product product = new Product(productName, productPrice);
-            product.setId(productId);
-            return product;
+            return new Product(productId, productName, productPrice);
         } catch (SQLException e) {
             throw new DataProcessingException("Failed to retrieve product"
                     + "from resultSet", e);
