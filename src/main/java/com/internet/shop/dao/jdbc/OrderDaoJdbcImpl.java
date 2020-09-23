@@ -38,19 +38,21 @@ public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public Optional<Order> get(Long id) {
         String query = "SELECT * FROM orders WHERE order_id = ? AND deleted = false";
+        Order order = new Order();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Order order = getOrderFromSet(resultSet);
-                return Optional.of(order);
+                order = getOrderFromSet(resultSet);
             }
-            return Optional.empty();
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get order with id "
                     + id, e);
         }
+        List<Product> productList = getProductsListFromDb(order);
+        order.setProducts(productList);
+        return Optional.of(order);
     }
 
     @Override
@@ -62,12 +64,14 @@ public class OrderDaoJdbcImpl implements OrderDao {
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
                 Order order = getOrderFromSet(resultSet);
-                List<Product> productList = getProductsListFromDb(order);
-                order.setProducts(productList);
                 orderList.add(order);
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get all shopping carts", e);
+        }
+        for (Order order : orderList) {
+            List<Product> productList = getProductsListFromDb(order);
+            order.setProducts(productList);
         }
         return orderList;
     }
@@ -110,7 +114,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public List<Order> getUserOrders(Long userId) {
-        String query = "SELECT * FROM orders WHERE user_id = ?";
+        String query = "SELECT * FROM orders WHERE user_id = ? AND deleted = false;";
         List<Order> orderList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -121,10 +125,11 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 orderList.add(new Order(orderId, userId));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Failed to get order's product list from DB", e);
+            throw new DataProcessingException("Failed to get orders of user with id" + userId, e);
         }
         for (Order order : orderList) {
-            order.setProducts(getProductsListFromDb(order));
+            List<Product> productList = getProductsListFromDb(order);
+            order.setProducts(productList);
         }
         return orderList;
     }
@@ -159,7 +164,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     private List<Product> getProductsListFromDb(Order order) {
         String query = "SELECT * FROM products WHERE product_id IN " +
-                "(SELECT product_id FROM orders_products WHERE order_id = ?);";
+                "(SELECT product_id FROM orders_products WHERE order_id = ? AND deleted = false);";
         List<Product> productList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);

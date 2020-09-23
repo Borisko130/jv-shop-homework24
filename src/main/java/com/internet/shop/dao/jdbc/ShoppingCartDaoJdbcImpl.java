@@ -41,21 +41,21 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public Optional<ShoppingCart> get(Long id) {
         String query = "SELECT * FROM shopping_carts WHERE cart_id = ? AND deleted = false;";
+        ShoppingCart shoppingCart = new ShoppingCart();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                ShoppingCart shoppingCart = getShoppingCartFromSet(resultSet);
-                List<Product> productList = getProductsListFromDb(shoppingCart);
-                shoppingCart.setProducts(productList);
-                return Optional.of(shoppingCart);
+                shoppingCart = getShoppingCartFromSet(resultSet);
             }
-            return Optional.empty();
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get shopping cart with id "
                     + id, e);
         }
+        List<Product> productList = getProductsListFromDb(shoppingCart);
+        shoppingCart.setProducts(productList);
+        return Optional.of(shoppingCart);
     }
 
     @Override
@@ -67,12 +67,14 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
                 ShoppingCart shoppingCart = getShoppingCartFromSet(resultSet);
-                List<Product> productList = getProductsListFromDb(shoppingCart);
-                shoppingCart.setProducts(productList);
                 shoppingCartList.add(shoppingCart);
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get all shopping carts", e);
+        }
+        for (ShoppingCart shoppingCart : shoppingCartList) {
+            List<Product> productList = getProductsListFromDb(shoppingCart);
+            shoppingCart.setProducts(productList);
         }
         return shoppingCartList;
     }
@@ -115,18 +117,29 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public Optional<ShoppingCart> getByUserId(Long userId) {
-        // TODO implement getByUserId
-        return Optional.empty();
+        String query = "SELECT * FROM shopping_carts WHERE user_id = ? AND deleted = false;";
+        ShoppingCart shoppingCart = new ShoppingCart();
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setLong(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                shoppingCart = getShoppingCartFromSet(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can't get shopping cart of user with id "
+                    + userId, e);
+        }
+        List<Product> productList = getProductsListFromDb(shoppingCart);
+        shoppingCart.setProducts(productList);
+        return Optional.of(shoppingCart);
     }
 
     private ShoppingCart getShoppingCartFromSet(ResultSet resultSet) {
         try {
-            // TODO add constructor with both IDs and refactor code accordingly
             Long cartId = resultSet.getLong("cart_id");
             Long userId = resultSet.getLong("user_id");
-            ShoppingCart shoppingCart = new ShoppingCart(userId);
-            shoppingCart.setId(cartId);
-            return shoppingCart;
+            return new ShoppingCart(cartId, userId);
         } catch (SQLException e) {
             throw new DataProcessingException("Failed to retrieve shopping cart"
                     + "from resultSet", e);
@@ -152,7 +165,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     private List<Product> getProductsListFromDb(ShoppingCart shoppingCart) {
         String query = "SELECT * FROM products WHERE product_id IN " +
-                "(SELECT product_id FROM shopping_carts_products WHERE cart_id = ?);";
+                "(SELECT product_id FROM shopping_carts_products WHERE cart_id = ? AND deleted = false);";
         List<Product> productList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
