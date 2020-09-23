@@ -50,7 +50,7 @@ public class UserDaoJdbcImpl implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 User user = getUserFromSet(resultSet);
-                Set<Role> roles = getRoles(user);
+                Set<Role> roles = getRolesFromDb(user);
                 user.setRoles(roles);
                 return Optional.of(user);
             }
@@ -70,7 +70,7 @@ public class UserDaoJdbcImpl implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery(query);
             while (resultSet.next()) {
                 User user = getUserFromSet(resultSet);
-                Set<Role> roles = getRoles(user);
+                Set<Role> roles = getRolesFromDb(user);
                 user.setRoles(roles);
                 userList.add(user);
             }
@@ -162,13 +162,14 @@ public class UserDaoJdbcImpl implements UserDao {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Failed to set user roles", e);
+            throw new DataProcessingException("Failed to set user roles for user with id"
+                    + user.getId(), e);
         }
         return user;
     }
 
-    private Set<Role> getRoles(User user) {
-        String query = "SELECT role_name FROM roles WHERE role_id IN " +
+    private Set<Role> getRolesFromDb(User user) {
+        String query = "SELECT * FROM roles WHERE role_id IN " +
                 "(SELECT role_id FROM users_roles WHERE user_id = ?);";
         Set<Role> userRoles = new HashSet<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
@@ -176,11 +177,15 @@ public class UserDaoJdbcImpl implements UserDao {
             preparedStatement.setLong(1, user.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                String userRole = resultSet.getString("role_name");
-                userRoles.add(Role.of(userRole));
+                Long roleId = resultSet.getLong("role_id");
+                String roleName = resultSet.getString("role_name");
+                Role role = Role.of(roleName);
+                role.setId(roleId);
+                userRoles.add(role);
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Failed to get user roles", e);
+            throw new DataProcessingException("Failed to get user roles for user with id"
+                    + user.getId(), e);
         }
         return userRoles;
     }
@@ -192,7 +197,8 @@ public class UserDaoJdbcImpl implements UserDao {
             preparedStatement.setLong(1, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingException("Failed to remove user roles", e);
+            throw new DataProcessingException("Failed to remove user roles for user with id"
+                    + user.getId(), e);
         }
         return user;
     }
