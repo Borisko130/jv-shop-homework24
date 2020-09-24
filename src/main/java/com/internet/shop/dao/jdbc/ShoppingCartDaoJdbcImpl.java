@@ -54,10 +54,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             throw new DataProcessingException("Can't get shopping cart with id "
                     + id, e);
         }
-        if (shoppingCart == null) {
-            return Optional.empty();
-        }
-        return Optional.of(shoppingCart);
+        return Optional.ofNullable(shoppingCart);
     }
 
     @Override

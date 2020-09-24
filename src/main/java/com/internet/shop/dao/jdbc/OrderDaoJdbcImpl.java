@@ -53,10 +53,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
             throw new DataProcessingException("Can't get order with id "
                     + id, e);
         }
-        if (order == null) {
-            return Optional.empty();
-        }
-        return Optional.of(order);
+
+        return Optional.ofNullable(order);
     }
 
     @Override

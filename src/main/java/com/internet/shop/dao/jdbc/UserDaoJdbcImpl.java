@@ -44,21 +44,21 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Optional<User> get(Long id) {
         String query = "SELECT * FROM users WHERE user_id = ? AND deleted = false;";
-        User user = new User();
+        User user = null;
+        Set<Role> roles = getRolesFromDb(id);
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 user = getUserFromSet(resultSet);
+                user.setRoles(roles);
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get user with id "
                     + id, e);
         }
-        Set<Role> roles = getRolesFromDb(user);
-        user.setRoles(roles);
-        return Optional.of(user);
+        return Optional.ofNullable(user);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UserDaoJdbcImpl implements UserDao {
             throw new DataProcessingException("Can't get all users", e);
         }
         for (User user : userList) {
-            Set<Role> roles = getRolesFromDb(user);
+            Set<Role> roles = getRolesFromDb(user.getId());
             user.setRoles(roles);
         }
         return userList;
@@ -123,7 +123,7 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) {
         String query = "SELECT * FROM users WHERE user_login = ? AND deleted = false;";
-        User user = new User();
+        User user = null;
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, login);
@@ -135,7 +135,10 @@ public class UserDaoJdbcImpl implements UserDao {
             throw new DataProcessingException("Can't get user with login "
                     + login, e);
         }
-        Set<Role> roles = getRolesFromDb(user);
+        if (user == null) {
+            return Optional.empty();
+        }
+        Set<Role> roles = getRolesFromDb(user.getId());
         user.setRoles(roles);
         return Optional.of(user);
     }
@@ -172,13 +175,13 @@ public class UserDaoJdbcImpl implements UserDao {
         return user;
     }
 
-    private Set<Role> getRolesFromDb(User user) {
+    private Set<Role> getRolesFromDb(Long id) {
         String query = "SELECT * FROM roles WHERE role_id IN "
                 + "(SELECT role_id FROM users_roles WHERE user_id = ?);";
         Set<Role> userRoles = new HashSet<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setLong(1, user.getId());
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Long roleId = resultSet.getLong("role_id");
@@ -189,7 +192,7 @@ public class UserDaoJdbcImpl implements UserDao {
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Failed to get user roles for user with id"
-                    + user.getId(), e);
+                    + id, e);
         }
         return userRoles;
     }
