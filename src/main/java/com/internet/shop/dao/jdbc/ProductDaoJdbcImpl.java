@@ -83,7 +83,8 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(3, product.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't update product with id ", e);
+            throw new DataProcessingException("Can't update product with id "
+                    + product.getId(), e);
         }
         return product;
     }
@@ -97,7 +98,8 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't delete product with id ", e);
+            throw new DataProcessingException("Can't delete product with id "
+                    + id, e);
         }
     }
 
@@ -111,9 +113,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             String productName = resultSet.getString("product_name");
             double productPrice = resultSet.getDouble("product_price");
             Long productId = resultSet.getLong("product_id");
-            Product product = new Product(productName, productPrice);
-            product.setId(productId);
-            return product;
+            return new Product(productId, productName, productPrice);
         } catch (SQLException e) {
             throw new DataProcessingException("Failed to retrieve product"
                     + "from resultSet", e);

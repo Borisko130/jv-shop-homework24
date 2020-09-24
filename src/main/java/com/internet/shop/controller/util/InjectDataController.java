@@ -28,10 +28,8 @@ public class InjectDataController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         List<User> allUsers = userService.getAll();
-        User user1 = new User("Boris", "u1", "1");
-        User user2 = new User("NotBoris", "u2", "1");
-        user1.setRoles(Set.of(Role.of("ADMIN")));
-        user2.setRoles(Set.of(Role.of("USER")));
+        User user1 = new User("Boris", "u1", "1", Set.of(Role.of("ADMIN")));
+        User user2 = new User("NotBoris", "u2", "1", Set.of(Role.of("USER")));
         userService.create(user1);
         userService.create(user2);
         shoppingCartService.create(new ShoppingCart(user1.getId()));
