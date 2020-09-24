@@ -20,8 +20,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
-        String query = "INSERT INTO shopping_carts (user_id)"
-                + " VALUES (?);";
+        String query = "INSERT INTO shopping_carts (user_id) VALUES (?);";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
