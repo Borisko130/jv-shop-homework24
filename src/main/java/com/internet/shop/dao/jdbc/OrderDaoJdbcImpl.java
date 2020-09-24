@@ -40,19 +40,22 @@ public class OrderDaoJdbcImpl implements OrderDao {
     public Optional<Order> get(Long id) {
         String query = "SELECT * FROM orders WHERE order_id = ? AND deleted = false";
         Order order = null;
+        List<Product> productList = getProductsListFromDb(id);
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 order = getOrderFromSet(resultSet);
+                order.setProducts(productList);
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get order with id "
                     + id, e);
         }
-        List<Product> productList = getProductsListFromDb(order);
-        order.setProducts(productList);
+        if (order == null) {
+            return Optional.empty();
+        }
         return Optional.of(order);
     }
 
@@ -71,7 +74,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             throw new DataProcessingException("Can't get all shopping carts", e);
         }
         for (Order order : orderList) {
-            List<Product> productList = getProductsListFromDb(order);
+            List<Product> productList = getProductsListFromDb(order.getId());
             order.setProducts(productList);
         }
         return orderList;
@@ -129,7 +132,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             throw new DataProcessingException("Failed to get orders of user with id" + userId, e);
         }
         for (Order order : orderList) {
-            List<Product> productList = getProductsListFromDb(order);
+            List<Product> productList = getProductsListFromDb(order.getId());
             order.setProducts(productList);
         }
         return orderList;
@@ -163,14 +166,14 @@ public class OrderDaoJdbcImpl implements OrderDao {
         return order;
     }
 
-    private List<Product> getProductsListFromDb(Order order) {
+    private List<Product> getProductsListFromDb(Long id) {
         String query = "SELECT * FROM products WHERE product_id IN "
                 + "(SELECT product_id FROM orders_products WHERE order_id = ? "
                 + "AND deleted = false);";
         List<Product> productList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setLong(1, order.getId());
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Long productId = resultSet.getLong("product_id");

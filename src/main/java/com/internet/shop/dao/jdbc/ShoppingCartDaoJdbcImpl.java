@@ -117,7 +117,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public Optional<ShoppingCart> getByUserId(Long userId) {
         String query = "SELECT * FROM shopping_carts WHERE user_id = ? AND deleted = false;";
-        ShoppingCart shoppingCart = new ShoppingCart();
+        ShoppingCart shoppingCart = null;
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, userId);
