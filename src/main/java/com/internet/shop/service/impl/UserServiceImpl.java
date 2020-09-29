@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     private User setPassAndSalt(User user) {
         byte[] salt = HashUtil.getSalt();
-        String pass = HashUtil.hashPassword(user.getPassword(),salt);
+        String pass = HashUtil.hashPassword(user.getPassword(), salt);
         user.setSalt(salt);
         user.setPassword(pass);
         return user;

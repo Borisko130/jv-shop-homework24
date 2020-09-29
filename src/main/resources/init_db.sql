@@ -5,6 +5,7 @@ CREATE TABLE `my_shop`.`products` (
                                       `product_name` VARCHAR(225) NOT NULL,
                                       `product_price` DOUBLE NOT NULL,
                                       `deleted` BOOLEAN NOT NULL DEFAULT false,
+                                      `salt` VARBINARY(255) NOT NULL,
                                       PRIMARY KEY (`product_id`));
 
 CREATE TABLE `my_shop`.`users` (
@@ -100,6 +101,3 @@ CREATE TABLE `my_shop`.`users_roles` (
 USE my_shop;
 INSERT INTO roles (role_name) VALUES ('ADMIN');
 INSERT INTO roles (role_name) VALUES ('USER');
-
-ALTER TABLE `my_shop`.`users`
-    ADD COLUMN `salt` VARBINARY(255) NOT NULL AFTER `deleted`;
