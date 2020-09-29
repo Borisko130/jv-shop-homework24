@@ -100,3 +100,6 @@ CREATE TABLE `my_shop`.`users_roles` (
 USE my_shop;
 INSERT INTO roles (role_name) VALUES ('ADMIN');
 INSERT INTO roles (role_name) VALUES ('USER');
+
+ALTER TABLE `my_shop`.`users`
+    ADD COLUMN `salt` VARCHAR(225) NOT NULL AFTER `deleted`;
