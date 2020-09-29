@@ -29,7 +29,7 @@ public class UserDaoJdbcImpl implements UserDao {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getSalt());
+            preparedStatement.setBytes(4, user.getSalt());
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -92,7 +92,7 @@ public class UserDaoJdbcImpl implements UserDao {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getSalt());
+            preparedStatement.setBytes(4, user.getSalt());
             preparedStatement.setLong(5, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -150,11 +150,9 @@ public class UserDaoJdbcImpl implements UserDao {
             String userName = resultSet.getString("user_name");
             String userLogin = resultSet.getString("user_login");
             String userPassword = resultSet.getString("user_password");
-            String salt = resultSet.getString("salt");
+            byte[] salt = resultSet.getBytes("salt");
             Long userId = resultSet.getLong("user_id");
-            User user = new User(userName, userLogin, userPassword);
-            user.setId(userId);
-            return user;
+            return new User(userId, userName, userLogin, userPassword, salt);
         } catch (SQLException e) {
             throw new DataProcessingException("Failed to retrieve user"
                     + "from resultSet", e);

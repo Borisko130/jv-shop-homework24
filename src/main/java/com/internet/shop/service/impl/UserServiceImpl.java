@@ -5,6 +5,8 @@ import com.internet.shop.lib.Inject;
 import com.internet.shop.lib.Service;
 import com.internet.shop.model.User;
 import com.internet.shop.service.UserService;
+import com.internet.shop.util.HashUtil;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-        return userDao.create(user);
+        return userDao.create(setPassAndSalt(user));
     }
 
     @Override
@@ -30,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-        return userDao.update(user);
+        return userDao.update(setPassAndSalt(user));
     }
 
     @Override
@@ -46,5 +48,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByLogin(String login) {
         return userDao.findByLogin(login);
+    }
+
+    private User setPassAndSalt(User user) {
+        byte[] salt = HashUtil.getSalt();
+        String pass = HashUtil.hashPassword(user.getPassword(),salt);
+        user.setSalt(salt);
+        user.setPassword(pass);
+        return user;
     }
 }
