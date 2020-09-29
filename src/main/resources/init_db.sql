@@ -102,4 +102,4 @@ INSERT INTO roles (role_name) VALUES ('ADMIN');
 INSERT INTO roles (role_name) VALUES ('USER');
 
 ALTER TABLE `my_shop`.`users`
-    ADD COLUMN `salt` VARCHAR(255) NOT NULL AFTER `deleted`;
+    ADD COLUMN `salt` VARBINARY(255) NOT NULL AFTER `deleted`;
