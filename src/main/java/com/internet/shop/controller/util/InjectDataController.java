@@ -9,9 +9,7 @@ import com.internet.shop.service.ProductService;
 import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
 import com.internet.shop.util.HashUtil;
-
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
