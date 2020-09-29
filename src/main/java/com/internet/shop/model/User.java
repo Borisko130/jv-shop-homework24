@@ -21,24 +21,18 @@ public class User {
     }
 
     public User(String name, String login, String password, Set<Role> roles) {
-        this.name = name;
-        this.login = login;
-        this.password = password;
+        this(name, login, password);
         this.roles = roles;
     }
 
     public User(Long id, String name, String login, String password, byte[] salt) {
+        this(name, login, password);
         this.id = id;
-        this.name = name;
-        this.login = login;
-        this.password = password;
         this.salt = salt;
     }
 
     public User(String name, String login, String password, byte[] salt, Set<Role> roles) {
-        this.name = name;
-        this.login = login;
-        this.password = password;
+        this(name, login, password);
         this.salt = salt;
         this.roles = roles;
     }
