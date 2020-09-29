@@ -35,6 +35,14 @@ public class User {
         this.salt = salt;
     }
 
+    public User(String name, String login, String password, byte[] salt, Set<Role> roles) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.salt = salt;
+        this.roles = roles;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
