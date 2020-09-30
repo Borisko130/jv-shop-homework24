@@ -21,14 +21,15 @@ import java.util.Set;
 public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User create(User user) {
-        String query = "INSERT INTO users (user_name, user_login, user_password)"
-                + " VALUES (?, ?, ?);";
+        String query = "INSERT INTO users (user_name, user_login, user_password, salt)"
+                + " VALUES (?, ?, ?, ?);";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setBytes(4, user.getSalt());
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -84,14 +85,15 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User update(User user) {
-        String query = "UPDATE users SET user_name = ?, user_login = ?, user_password = ? "
-                + "WHERE user_id = ? AND deleted = false;";
+        String query = "UPDATE users SET user_name = ?, user_login = ?, user_password = ?"
+                + ", salt = ? WHERE user_id = ? AND deleted = false;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setLong(4, user.getId());
+            preparedStatement.setBytes(4, user.getSalt());
+            preparedStatement.setLong(5, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DataProcessingException("Can't update user with id "
@@ -148,10 +150,9 @@ public class UserDaoJdbcImpl implements UserDao {
             String userName = resultSet.getString("user_name");
             String userLogin = resultSet.getString("user_login");
             String userPassword = resultSet.getString("user_password");
+            byte[] salt = resultSet.getBytes("salt");
             Long userId = resultSet.getLong("user_id");
-            User user = new User(userName, userLogin, userPassword);
-            user.setId(userId);
-            return user;
+            return new User(userId, userName, userLogin, userPassword, salt);
         } catch (SQLException e) {
             throw new DataProcessingException("Failed to retrieve user"
                     + "from resultSet", e);

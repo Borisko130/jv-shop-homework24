@@ -5,6 +5,7 @@ CREATE TABLE `my_shop`.`products` (
                                       `product_name` VARCHAR(225) NOT NULL,
                                       `product_price` DOUBLE NOT NULL,
                                       `deleted` BOOLEAN NOT NULL DEFAULT false,
+                                      `salt` VARBINARY(255) NOT NULL,
                                       PRIMARY KEY (`product_id`));
 
 CREATE TABLE `my_shop`.`users` (
