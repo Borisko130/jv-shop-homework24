@@ -16,12 +16,12 @@ ___This project was not intended as a practice in website development and
 
 # Technologies used in the project
 1. Backend:
-    1. JDBC
-    1. Tomcat
-    1. MySQL
+    - JDBC
+    - Tomcat
+    - MySQL
 1. Frontend:
-    1. JSP
-    1. JSTL
+    - JSP
+    - JSTL
 
 # Requirements
 To run this project you need to install the following on your computer:
