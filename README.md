@@ -14,9 +14,20 @@ In this project I implemented:
 ___This project was not intended as a practice in website development and 
    therefore does not have any CSS files, images, or pretty formatting, only plain HTML.___
 
+# Technologies used in the project
+1. Backend:
+    1. JDBC
+    1. Tomcat
+    1. MySQL
+1. Frontend:
+    1. JSP
+    1. JSTL
+
 # Requirements
 To run this project you need to install the following on your computer:
 Java, Apache Tomcat, MySQL
+
+To setup database copy and execute queries from init_db.sql file which is located in /src/resources
 
 # Tested on
 This project was tested with the following software:
